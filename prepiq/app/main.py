@@ -11,7 +11,11 @@ app = FastAPI(title="PrepIQ API", version="0.1.0")
 # Allow the vanilla-JS frontend (served from a different port/origin during dev)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten this to your actual frontend origin before deploying
+    allow_origins=[
+        "http://localhost:5500",   # Docker-served frontend (nginx)
+        "http://127.0.0.1:5500",
+        "http://localhost:5501",   # common alt port, e.g. VS Code Live Server
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

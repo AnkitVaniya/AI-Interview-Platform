@@ -16,6 +16,7 @@ import subprocess
 import tempfile
 import time
 import os
+import sys
 
 TIMEOUT_SECONDS = 5
 
@@ -34,14 +35,15 @@ def run_python_code(code: str, stdin_input: str) -> tuple[str, float, bool]:
     output = ""
     try:
         result = subprocess.run(
-            ["python3", script_path],
+            [sys.executable, script_path],
             input=stdin_input,
             capture_output=True,
             text=True,
             timeout=TIMEOUT_SECONDS,
         )
         output = result.stdout
-        if result.returncode != 0 and not output:
+
+        if result.returncode != 0:
             output = f"__ERROR__\n{result.stderr}"
     except subprocess.TimeoutExpired:
         timed_out = True

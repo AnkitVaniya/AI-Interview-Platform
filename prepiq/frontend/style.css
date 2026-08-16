@@ -1,0 +1,110 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #0f1117;
+  color: #e6e6e6;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Navbar ---------- */
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: #161923;
+  border-bottom: 1px solid #262a38;
+}
+.logo { font-weight: 700; font-size: 1.3rem; color: #7c9cff; }
+#navbar nav button {
+  background: none; border: none; color: #cfd3e0; margin-right: 6px;
+  padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 0.95rem;
+}
+#navbar nav button:hover, #navbar nav button.active { background: #262a38; color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+#logoutBtn {
+  background: #2a2f3f; border: none; color: #ff8f8f; padding: 6px 14px;
+  border-radius: 8px; cursor: pointer;
+}
+
+/* ---------- Layout ---------- */
+#app { max-width: 1100px; margin: 0 auto; padding: 28px; }
+.view h2 { margin-bottom: 18px; }
+
+/* ---------- Auth ---------- */
+.auth-card {
+  max-width: 380px; margin: 80px auto; background: #161923; padding: 32px;
+  border-radius: 16px; border: 1px solid #262a38; text-align: center;
+}
+.auth-card h1 { color: #7c9cff; }
+.subtitle { color: #8a8fa3; margin-bottom: 20px; }
+.tabs { display: flex; margin-bottom: 16px; border-radius: 8px; overflow: hidden; }
+.tab-btn { flex: 1; padding: 10px; background: #1f2330; border: none; color: #8a8fa3; cursor: pointer; }
+.tab-btn.active { background: #7c9cff; color: #101223; font-weight: 600; }
+.tab-panel { display: none; flex-direction: column; gap: 10px; }
+.tab-panel.active { display: flex; }
+input, select, textarea {
+  padding: 10px 12px; border-radius: 8px; border: 1px solid #2a2f3f;
+  background: #0f1117; color: #e6e6e6; font-size: 0.95rem; width: 100%;
+}
+button[type="submit"], .card button, #uploadResumeBtn, #createContestBtn {
+  background: #7c9cff; color: #101223; border: none; padding: 10px 14px;
+  border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 6px;
+}
+.error-msg { color: #ff8f8f; margin-top: 10px; min-height: 1em; font-size: 0.9rem; }
+.hint { color: #6b7086; font-size: 0.82rem; margin-top: 14px; }
+
+/* ---------- Cards / grid ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.card {
+  background: #161923; border: 1px solid #262a38; border-radius: 14px;
+  padding: 18px; margin-bottom: 16px;
+}
+.card h3 { color: #7c9cff; margin-bottom: 10px; font-size: 1rem; }
+.tag { display: inline-block; background: #262a38; color: #cfd3e0; padding: 3px 10px;
+  border-radius: 999px; font-size: 0.78rem; margin: 3px 4px 3px 0; }
+
+/* ---------- Questions ---------- */
+.search-row { display: flex; gap: 10px; margin-bottom: 16px; position: relative; }
+.search-row input { flex: 1; }
+.search-row select { width: 160px; }
+.suggestions {
+  position: absolute; top: 46px; left: 0; width: calc(100% - 176px);
+  background: #1f2330; border: 1px solid #2a2f3f; border-radius: 8px; z-index: 10;
+  max-height: 200px; overflow-y: auto;
+}
+.suggestions div { padding: 8px 12px; cursor: pointer; }
+.suggestions div:hover { background: #262a38; }
+
+.question-layout { display: grid; grid-template-columns: 280px 1fr; gap: 18px; }
+.question-list { display: flex; flex-direction: column; gap: 8px; }
+.question-item {
+  background: #161923; border: 1px solid #262a38; border-radius: 10px;
+  padding: 12px; cursor: pointer;
+}
+.question-item:hover, .question-item.active { border-color: #7c9cff; }
+.question-item .diff { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; margin-top: 4px; display: inline-block; }
+.diff-easy { background: #1e3a2a; color: #7cffa1; }
+.diff-medium { background: #3a331e; color: #ffd77c; }
+.diff-hard { background: #3a1e1e; color: #ff8f8f; }
+
+.question-detail { background: #161923; border: 1px solid #262a38; border-radius: 14px; padding: 20px; min-height: 400px; }
+.placeholder { color: #6b7086; }
+.CodeMirror { height: 260px; border-radius: 8px; margin: 14px 0; }
+.result-box { margin-top: 14px; padding: 12px; border-radius: 8px; font-weight: 600; }
+.result-accepted { background: #1e3a2a; color: #7cffa1; }
+.result-failed { background: #3a1e1e; color: #ff8f8f; }
+
+/* ---------- Leaderboard ---------- */
+.leaderboard-table { width: 100%; border-collapse: collapse; background: #161923; border-radius: 12px; overflow: hidden; }
+.leaderboard-table th, .leaderboard-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #262a38; }
+.leaderboard-table th { background: #1f2330; color: #7c9cff; }
+
+/* ---------- Contests ---------- */
+.contest-card { display: flex; justify-content: space-between; align-items: center; }
+.status-badge { padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; }
+.status-live { background: #1e3a2a; color: #7cffa1; }
+.status-upcoming { background: #1e2a3a; color: #7cb8ff; }
+.status-ended { background: #262a38; color: #8a8fa3; }

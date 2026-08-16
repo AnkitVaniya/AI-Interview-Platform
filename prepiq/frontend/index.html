@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepIQ</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- CodeMirror for a real code editor, loaded from CDN — no build step needed -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+</head>
+<body>
+  <header id="navbar" class="hidden">
+    <div class="logo">PrepIQ</div>
+    <nav>
+      <button data-view="dashboard">Dashboard</button>
+      <button data-view="questions">Questions</button>
+      <button data-view="leaderboard">Leaderboard</button>
+      <button data-view="contests">Contests</button>
+      <button data-view="resume">Resume</button>
+    </nav>
+    <div class="nav-right">
+      <span id="userName"></span>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- AUTH VIEW -->
+    <section id="view-auth" class="view">
+      <div class="auth-card">
+        <h1>PrepIQ</h1>
+        <p class="subtitle">AI-powered interview prep</p>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="login">Login</button>
+          <button class="tab-btn" data-tab="register">Register</button>
+        </div>
+
+        <form id="loginForm" class="tab-panel active">
+          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input type="password" id="loginPassword" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+
+        <form id="registerForm" class="tab-panel">
+          <input type="text" id="registerName" placeholder="Full name" required />
+          <input type="email" id="registerEmail" placeholder="Email" required />
+          <input type="password" id="registerPassword" placeholder="Password" required />
+          <button type="submit">Create account</button>
+        </form>
+
+        <p id="authError" class="error-msg"></p>
+        <p class="hint">Tip: use the seeded admin (admin@prepiq.dev / admin123) to create questions/contests.</p>
+      </div>
+    </section>
+
+    <!-- DASHBOARD VIEW -->
+    <section id="view-dashboard" class="view hidden">
+      <h2>Your Dashboard</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Recommended Next Question</h3>
+          <div id="recommendedBox">Loading...</div>
+        </div>
+        <div class="card">
+          <h3>Mastered Topics</h3>
+          <div id="masteredBox">Loading...</div>
+        </div>
+        <div class="card">
+          <h3>Unlocked Next</h3>
+          <div id="unlockedBox">Loading...</div>
+        </div>
+        <div class="card">
+          <h3>Full Learning Path</h3>
+          <div id="topicOrderBox">Loading...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTIONS VIEW -->
+    <section id="view-questions" class="view hidden">
+      <h2>Questions</h2>
+      <div class="search-row">
+        <input type="text" id="searchBox" placeholder="Search questions (autocomplete)..." />
+        <div id="searchSuggestions" class="suggestions hidden"></div>
+        <select id="difficultyFilter">
+          <option value="">All difficulties</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="question-layout">
+        <div id="questionList" class="question-list"></div>
+        <div id="questionDetail" class="question-detail">
+          <p class="placeholder">Select a question to begin.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD VIEW -->
+    <section id="view-leaderboard" class="view hidden">
+      <h2>Global Leaderboard</h2>
+      <table class="leaderboard-table">
+        <thead><tr><th>Rank</th><th>User</th><th>Score</th></tr></thead>
+        <tbody id="leaderboardBody"></tbody>
+      </table>
+    </section>
+
+    <!-- CONTESTS VIEW -->
+    <section id="view-contests" class="view hidden">
+      <h2>Contests</h2>
+      <div id="adminContestForm" class="card hidden">
+        <h3>Create Contest (admin)</h3>
+        <input type="text" id="contestTitle" placeholder="Contest title" />
+        <input type="text" id="contestQuestionIds" placeholder="Question IDs, comma-separated" />
+        <label>Start: <input type="datetime-local" id="contestStart" /></label>
+        <label>End: <input type="datetime-local" id="contestEnd" /></label>
+        <button id="createContestBtn">Create Contest</button>
+      </div>
+      <div id="contestList" class="contest-list"></div>
+    </section>
+
+    <!-- RESUME VIEW -->
+    <section id="view-resume" class="view hidden">
+      <h2>Resume Upload</h2>
+      <p class="hint">Upload a .txt resume (or plain-text extracted from PDF/DOCX) to extract skills.</p>
+      <input type="file" id="resumeFile" accept=".txt" />
+      <button id="uploadResumeBtn">Upload &amp; Analyze</button>
+      <div id="resumeResult" class="card hidden">
+        <h3>Extracted Skills</h3>
+        <div id="skillsBox"></div>
+        <h3>Matched Topics</h3>
+        <div id="topicsBox"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
